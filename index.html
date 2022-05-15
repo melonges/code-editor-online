@@ -610,11 +610,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/python/python.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/addon/scroll/simplescrollbars.min.js"></script>
 <script>
+  let socket = io();
+
   let isFocus;
   window.onfocus = function(){ isFocus = true; }
   window.onblur = function(){ isFocus = false; }
   const onlineCounter = document.querySelector(".online__table");
-  let socket = io();
 const langPanel = document.querySelector("#inputLang")
   langPanel.addEventListener("change", event => changeMode(event.target.value))
   let mode = "javascript"
@@ -654,11 +655,12 @@ const langPanel = document.querySelector("#inputLang")
   }
   socket.on("chat message", msg => {
     if (!isFocus) {
-      document.title = "New message";
+      document.title = "New event";
       editor.setValue(msg);
       setTimeout(() => document.title = "Editor online", 1000)
     }
   })
+
   socket.on("change online", val => { onlineCounter.innerText = "Online: " +  val; console.log("changed!")})
   document.addEventListener('keydown', function(event) {
     if (event.code === 'KeyZ' && (event.ctrlKey || event.metaKey)) socket.emit('chat message', editor.getValue())
