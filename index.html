@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="https://unpkg.com/augmented-ui@2.0.0/augmented-ui.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.35.0/codemirror.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/addon/scroll/simplescrollbars.min.css">
+  <link rel="icon" type="image/x-icon" href="https://cdn.discordapp.com/avatars/336516852995850241/f8162a85bd822a9d9caa3bd9d5360fe2?size=1024">
   <style>
     .code-container {
       resize: both;
@@ -212,11 +213,11 @@
     .CodeMirror-linenumber {
       padding-right: 1em;
     }
-    .code__send-button {
+    .online__wrapper {
       display: flex;
       justify-content: flex-end;
     }
-    .send-button {
+    .online__table {
       color: #1FFFFF;
       text-decoration: none;
       border: 2px solid;
@@ -280,22 +281,7 @@
       background: rgba(153, 99, 255, 0.5);
     }
 
-    .CodeMirror-scrollbar-filler {
-      display: none !important;
-    }
 
-    /* codepen's highcontrast-dark theme */
-    .cm-header {
-      font-weight: 700
-    }
-
-    .cm-strong {
-      font-weight: 700
-    }
-
-    .cm-em {
-      font-style: italic
-    }
 
     :root {
       --editor-top-bar-background: black;
@@ -307,125 +293,36 @@
 
     .sidebar-false .main-header,
     .sidebar-false .main-header .header-wrap,
-    .editor-footer {
-      background: var(--editor-top-bar-background)
-    }
 
-    .CodeMirror-cursor {
-      border-left-color: #fff !important
-    }
 
-    .CodeMirror-selected {
-      background: rgba(255, 255, 255, .05)
-    }
+
 
     .CodeMirror-focused .CodeMirror-selected {
       background: rgba(255, 255, 255, .1)
     }
 
-    .CodeMirror-matchingbracket {
-      border-bottom: 1px solid rgba(255, 255, 255, .5)
-    }
 
-    .CodeMirror-matchingtag {
-      border-bottom: 1px solid rgba(255, 255, 255, .3)
-    }
 
-    .cm-searching {
-      background: #000;
-      outline: 2px solid rgba(255, 255, 255, .25)
-    }
 
-    .CodeMirror-hints,
-    .emmet-abbreviation-preview {
-      border: 1px solid #5a5f73;
-      background: #1e1f26
-    }
 
-    .CodeMirror-hint {
-      color: #fff
-    }
+
 
     li.CodeMirror-hint-active {
       background: #c7c9d3;
       color: #000
     }
 
-    .project-editor-warning {
-      background: rgba(255, 255, 255, .1)
-    }
 
-    .editor-footer {
-      border-top-color: var(--resizer-border, var(--cp-color-6))
-    }
 
-    .cm-keyword {
-      color: #ffdd40
-    }
 
-    .cm-atom {
-      color: #a3d65a
-    }
+
+
 
     .box-html .cm-atom {
       color: #ff3c41
     }
 
-    .cm-def {
-      color: #0ebeff
-    }
 
-    .cm-variable {
-      color: #c7c9d3
-    }
-
-    .cm-variable-2 {
-      color: #47cf73
-    }
-
-    .cm-variable-3 {
-      color: #fff
-    }
-
-    .cm-header {
-      color: #ff3c41
-    }
-
-    .cm-number {
-      color: #2bc7b9
-    }
-
-    .cm-property {
-      color: #5e91f2
-    }
-
-    .cm-attribute {
-      color: #e3e4e8
-    }
-
-    .cm-builtin {
-      color: #ae63e4
-    }
-
-    .cm-qualifier {
-      color: #ffdd40
-    }
-
-    .cm-operator {
-      color: #47cf73
-    }
-
-    .cm-meta {
-      color: #0ebeff
-    }
-
-    .cm-string {
-      color: #2bc7b9
-    }
-
-    .cm-string-2 {
-      color: #d75093
-    }
 
     .cm-tag {
       color: #ffdd40
@@ -435,13 +332,7 @@
       color: #ff8d41
     }
 
-    .cm-tag.cm-bracket {
-      color: #9b9dad
-    }
 
-    .cm-comment {
-      color: #88afbf
-    }
 
     body.editor {
       background: #131417
@@ -463,10 +354,7 @@
       color: #d5d7de
     }
 
-    .CodeMirror-guttermarker-subtle,
-    .CodeMirror-linenumber {
-      color: rgba(113, 119, 144, .6)
-    }
+
 
     #output pre::-webkit-scrollbar,
     #output iframe::-webkit-scrollbar {
@@ -503,9 +391,7 @@
       fill: #000
     }
 
-    /* theme overrides original source */
-    /* https://marketplace.visualstudio.com/items?itemName=webrender.synthwave-x-fluoromachine */
-    /* I just ported it to codemirror */
+
 
     .highcontrast-dark .cm-header {
       font-weight: bold
@@ -692,7 +578,7 @@
 </head>
 
 <body>
-<div  class="code-container" target="_blank" content="save code: Ctrl+Z">
+<div  class="code-container"  content="save code: Ctrl+Z">
 <!--  <div  class="code-container" target="_blank" content="save code: Ctrl+Z">-->
   <div class="glow-container">
     <div class="augs" data-augmented-ui></div>
@@ -708,12 +594,13 @@
       </select>
     </form>
     <div class="code highcontrast-dark">
-<!--      <div class="code__send-button">-->
-<!--        <button class="send-button">Send</button>-->
-<!--      </div>-->
+
       <textarea id="code">loading...</textarea>
     </div>
   </section>
+  <div class="online__wrapper">
+    <p class="online__table">Online: 1</p>
+  </div>
 </div>
 <script src="/socket.io/socket.io.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/codemirror.js"></script>
@@ -723,6 +610,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/python/python.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/addon/scroll/simplescrollbars.min.js"></script>
 <script>
+  let isFocus;
+  window.onfocus = function(){ isFocus = true; }
+  window.onblur = function(){ isFocus = false; }
+  const onlineCounter = document.querySelector(".online__table");
   let socket = io();
 const langPanel = document.querySelector("#inputLang")
   langPanel.addEventListener("change", event => changeMode(event.target.value))
@@ -761,7 +652,14 @@ const langPanel = document.querySelector("#inputLang")
     mode = mode === "css" ? "javascript" : "css"
     editor.setOption("mode", mode)
   }
-  socket.on("chat message", msg => editor.setValue(msg))
+  socket.on("chat message", msg => {
+    if (!isFocus) {
+      document.title = "New message";
+      editor.setValue(msg);
+      setTimeout(() => document.title = "Editor online", 1000)
+    }
+  })
+  socket.on("change online", val => { onlineCounter.innerText = "Online: " +  val; console.log("changed!")})
   document.addEventListener('keydown', function(event) {
     if (event.code === 'KeyZ' && (event.ctrlKey || event.metaKey)) socket.emit('chat message', editor.getValue())
   })

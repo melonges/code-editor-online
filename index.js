@@ -21,9 +21,11 @@ io.on('connection', (socket) => {
 });
 io.on('connection', (socket) => {
   userCounter++
+  io.emit("change online", userCounter)
   console.log(`a user connected. All users: ${userCounter}`);
   socket.on('disconnect', () => {
     userCounter--
+    io.emit("change online", userCounter)
     console.log(`user disconnected. All users: ${userCounter}`);
   });
 });
