@@ -1,1 +1,1 @@
-{"lastMessage":"console.log(\"text\")"}
+{"lastMessage":"function test() {\n  console.log(\"жопа\")\n}"}
