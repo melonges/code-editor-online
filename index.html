@@ -219,8 +219,11 @@
     }
     .online__table {
       color: #1FFFFF;
+      padding: 5px;
       text-decoration: none;
       border: 2px solid;
+      font-size: 20px;
+      animation-play-state: paused;
       background-color: transparent;
       box-shadow:
               0 1px 2px rgba(0,0,0, 0.6),
@@ -231,49 +234,6 @@
               inset 2px 1px 4px rgba(0,0,0, 0.3),
               inset 2px 4px 3px rgba(3,0,128, 0.3),
               inset 0 0 7px 2px rgba(0,208,255, 0.6);
-      animation: flickering 5s infinite;
-    }
-
-    @keyframes flickering {
-      0% {
-        border-color: transparent;
-        opacity: 0.2;
-      }
-
-      2% {
-        border-color: #1FFFFF;
-        opacity: 1;
-      }
-
-      4% {
-        border-color: transparent;
-        opacity: 0.2;
-      }
-
-      8% {
-        border-color: #1FFFFF;
-        opacity: 1;
-      }
-
-      28% {
-        border-color: #1FFFFF;
-        opacity: 1;
-      }
-
-      30% {
-        border-color: transparent;
-        opacity: 0.2;
-      }
-
-      36% {
-        border-color: #1FFFFF;
-        opacity: 1;
-      }
-
-      100% {
-        border-color: #1FFFFF;
-        opacity: 1;
-      }
     }
 
     .CodeMirror-overlayscroll-horizontal div,
@@ -354,6 +314,33 @@
       color: #d5d7de
     }
 
+    .blink-1 {
+      -webkit-animation: blink-1 0.3s both;
+      animation: blink-1 0.3s both;
+    }
+
+    @-webkit-keyframes blink-1 {
+      0%,
+      50%,
+      100% {
+        opacity: 1;
+      }
+      25%,
+      75% {
+        opacity: 0;
+      }
+    }
+    @keyframes blink-1 {
+      0%,
+      50%,
+      100% {
+        opacity: 1;
+      }
+      25%,
+      75% {
+        opacity: 0;
+      }
+    }
 
 
     #output pre::-webkit-scrollbar,
@@ -438,6 +425,51 @@
     .highcontrast-dark .emmet-abbreviation-preview {
       border: 1px solid #5a5f73;
       background: #1e1f26
+    }
+    .slide-in-blurred-top {
+      -webkit-animation: slide-in-blurred-top 0.6s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+      animation: slide-in-blurred-top 0.6s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+    }
+
+    @-webkit-keyframes slide-in-blurred-top {
+      0% {
+        -webkit-transform: translateY(-1000px) scaleY(2.5) scaleX(0.2);
+        transform: translateY(-1000px) scaleY(2.5) scaleX(0.2);
+        -webkit-transform-origin: 50% 0%;
+        transform-origin: 50% 0%;
+        -webkit-filter: blur(40px);
+        filter: blur(40px);
+        opacity: 0;
+      }
+      100% {
+        -webkit-transform: translateY(0) scaleY(1) scaleX(1);
+        transform: translateY(0) scaleY(1) scaleX(1);
+        -webkit-transform-origin: 50% 50%;
+        transform-origin: 50% 50%;
+        -webkit-filter: blur(0);
+        filter: blur(0);
+        opacity: 1;
+      }
+    }
+    @keyframes slide-in-blurred-top {
+      0% {
+        -webkit-transform: translateY(-1000px) scaleY(2.5) scaleX(0.2);
+        transform: translateY(-1000px) scaleY(2.5) scaleX(0.2);
+        -webkit-transform-origin: 50% 0%;
+        transform-origin: 50% 0%;
+        -webkit-filter: blur(40px);
+        filter: blur(40px);
+        opacity: 0;
+      }
+      100% {
+        -webkit-transform: translateY(0) scaleY(1) scaleX(1);
+        transform: translateY(0) scaleY(1) scaleX(1);
+        -webkit-transform-origin: 50% 50%;
+        transform-origin: 50% 50%;
+        -webkit-filter: blur(0);
+        filter: blur(0);
+        opacity: 1;
+      }
     }
 
     .highcontrast-dark .CodeMirror-hint {
@@ -578,7 +610,7 @@
 </head>
 
 <body>
-<div  class="code-container"  content="save code: Ctrl+Z">
+<div  class="code-container"  content="update: Ctrl+Z">
 <!--  <div  class="code-container" target="_blank" content="save code: Ctrl+Z">-->
   <div class="glow-container">
     <div class="augs" data-augmented-ui></div>
@@ -591,6 +623,10 @@
         <option value="1">JavaScript</option>
         <option value="2">Python</option>
         <option value="3">Go</option>
+        <option value="4">C/C++</option>
+        <option value="5">Lua</option>
+        <option value="6">PHP</option>
+        <option value="7">Vue.js</option>
       </select>
     </form>
     <div class="code highcontrast-dark">
@@ -599,7 +635,7 @@
     </div>
   </section>
   <div class="online__wrapper">
-    <p class="online__table">Online: 1</p>
+    <p class="online__table slide-in-blurred-top">Online: 1</p>
   </div>
 </div>
 <script src="/socket.io/socket.io.js"></script>
@@ -608,16 +644,17 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/css/css.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/go/go.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/python/python.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/cmake/cmake.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/lua/lua.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/php/php.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/vue/vue.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/addon/scroll/simplescrollbars.min.js"></script>
 <script>
   let socket = io();
-
-  let isFocus;
-  window.onfocus = function(){ isFocus = true; }
-  window.onblur = function(){ isFocus = false; }
+ let lastCursorPosition;
   const onlineCounter = document.querySelector(".online__table");
 const langPanel = document.querySelector("#inputLang")
-  langPanel.addEventListener("change", event => changeMode(event.target.value))
+  langPanel.addEventListener("change", event => socket.emit("change lang", changeMode(+event.target.value)))
   let mode = "javascript"
   const editor = CodeMirror.fromTextArea(code, {
     lineNumbers: true,
@@ -631,6 +668,22 @@ const langPanel = document.querySelector("#inputLang")
     },
     mode
   })
+  editor.on("change", (instance, changes) => {
+     lastCursorPosition = changes.to;
+    const {origin} = changes;
+    if (origin !== "setValue") {
+      socket.emit("chat message", instance.getValue())
+    }
+  })
+  socket.on("change online", val => {
+    onlineCounter.innerText = "Online: " +  val
+    onlineCounter.classList.add("blink-1")
+    setTimeout(() => onlineCounter.classList.remove("blink-1"), 1000)
+  })
+  socket.on("change lang", lang => {
+    changeMode(lang)
+    langPanel.value = lang;
+  })
   editor.setOption("theme", "highcontrast-dark")
   const x = document.querySelector(".code")
   const ro = new ResizeObserver(entries => {
@@ -638,33 +691,38 @@ const langPanel = document.querySelector("#inputLang")
   })
   ro.observe(document.querySelector(".code-container"))
   const changeMode = (lang = 1) => {
-  console.log(lang)
   switch (lang) {
     case 1:
-      mode = "javascript"
-          break;
+      editor.setOption("mode", "javascript")
+        return lang;
     case 2:
-      mode = "python"
-          break;
+      editor.setOption("mode", "python")
+          return lang;
     case 3:
-      mode = "go"
-          break;
+      editor.setOption("mode", "go");
+     return lang;
+    case 4:
+      editor.setOption("mode", "cmake");
+      return lang;
+    case 5:
+      editor.setOption("mode", "lua");
+      return lang;
+    case 6:
+      editor.setOption("mode", "php");
+      return lang;
+    case 7:
+      editor.setOption("mode", "vue");
+      return lang;
+    default: return  "javascript"
   }
-    mode = mode === "css" ? "javascript" : "css"
-    editor.setOption("mode", mode)
   }
   socket.on("chat message", msg => {
-    if (!isFocus) {
-      document.title = "New event";
-      editor.setValue(msg);
-      setTimeout(() => document.title = "Editor online", 1000)
-    }
+    editor.setValue(msg)
+    editor.setCursor(lastCursorPosition)
   })
-
-  socket.on("change online", val => { onlineCounter.innerText = "Online: " +  val; console.log("changed!")})
-  document.addEventListener('keydown', function(event) {
-    if (event.code === 'KeyZ' && (event.ctrlKey || event.metaKey)) socket.emit('chat message', editor.getValue())
-  })
+  // document.addEventListener('keydown', function(event) {
+  //   if (event.code === 'KeyX' && (event.ctrlKey || event.metaKey)) {
+  // })
 </script>
 </body>
 
