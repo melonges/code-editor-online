@@ -30,12 +30,16 @@ io.on('connection', (socket) => {
 setInterval(() => {
   if (userCounter) {
     let data = JSON.stringify({"lastMessage": ACTUAL_MSG});
-    fs.writeFileSync('lastMessage.json', data);
-  }
+    fs.writeFile('lastMessage.json',data, "utf-8", err => {
+      if (err) {
+        console.error(err);
+    }
+  })}
 }, 5000)
-http.listen(port, () => {
+http.listen(port,  () => {
   console.log(`Socket.IO server running at http://localhost:${port}/`);
-  const rawdata = fs.readFileSync('lastMessage.json');
-  const {lastMessage} = JSON.parse(rawdata);
-  ACTUAL_MSG = lastMessage
+    fs.readFile('lastMessage.json', (err, data) => {
+      const {lastMessage} = JSON.parse(data);
+      ACTUAL_MSG = lastMessage
+    });
 });
