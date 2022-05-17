@@ -2,11 +2,20 @@ const app = require('express')();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const fs = require("fs")
+const path = require("path");
+const express = require("express");
 const port = process.env.PORT || 3000;
 let userCounter = 0;
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
-});
+
+const clientPath = path.join(__dirname, "client");
+
+app.use(express.static(clientPath))
+
+
+// app.get('/', (req, res) => {
+//   res.sendFile(__dirname + '/index.html');
+// });
+
 
 let ACTUAL_MSG;
 io.on('connection', (socket) => {
@@ -35,7 +44,7 @@ setInterval(() => {
         console.error(err);
     }
   })}
-}, 5000)
+}, 60 * 1000)
 http.listen(port,  () => {
   console.log(`Socket.IO server running at http://localhost:${port}/`);
     fs.readFile('lastMessage.json', (err, data) => {

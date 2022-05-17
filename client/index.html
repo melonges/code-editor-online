@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Socket.IO chat</title>
+  <link rel="stylesheet" href="https://unpkg.com/augmented-ui@2.0.0/augmented-ui.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.35.0/codemirror.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/addon/scroll/simplescrollbars.min.css">
+  <link rel="icon" type="image/x-icon" href="https://cdn.discordapp.com/avatars/336516852995850241/f8162a85bd822a9d9caa3bd9d5360fe2?size=1024">
+</head>
+<link rel="stylesheet" href="style.css">
+<body>
+<div  class="code-container"  content="github: mellonges">
+<!--  <div  class="code-container" target="_blank" content="save code: Ctrl+Z">-->
+  <div class="glow-container">
+    <div class="augs" data-augmented-ui></div>
+  </div>
+  <section class="augs bg" data-augmented-ui>
+    <button class="dots" onclick="changeMode()" title="change mode"></button>
+    <form>
+      <!--    <input type="button"  value="propjockey.io">-->
+      <select id="inputLang">
+        <option value="1">JavaScript</option>
+        <option value="2">Python</option>
+        <option value="3">Go</option>
+        <option value="4">C/C++</option>
+        <option value="5">Lua</option>
+        <option value="6">PHP</option>
+        <option value="7">Vue.js</option>
+      </select>
+    </form>
+    <div class="code highcontrast-dark">
+
+      <textarea id="code">loading...</textarea>
+    </div>
+  </section>
+  <div class="online__wrapper">
+    <div class="slide-in-blurred-top">
+    <p class="online__table">Online: 1</p>
+    </div>
+  </div>
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/codemirror.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/javascript/javascript.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/css/css.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/go/go.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/python/python.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/cmake/cmake.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/lua/lua.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/php/php.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/vue/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/addon/scroll/simplescrollbars.min.js"></script>
+<script src="script.js"></script>
+</body>
+
+</html>
