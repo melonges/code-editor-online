@@ -4,10 +4,12 @@ const onlineCounter = document.querySelector(".online__table");
 const langPanel = document.querySelector("#inputLang")
 langPanel.addEventListener("change", event => socket.emit("change lang", changeMode(+event.target.value)))
 let mode = "javascript"
-const editor = CodeMirror.fromTextArea(code, {
+const editor = CodeMirror.fromTextArea(document.querySelector("#code"), {
     lineNumbers: true,
     styleActiveLine: true,
     matchBrackets: true,
+    autoCloseTags: true,
+    autoCloseBrackets: true,
     scrollbarStyle: "overlay",
     Tab: "indentMore",
     defaultTab: function (cm) {
@@ -18,8 +20,8 @@ const editor = CodeMirror.fromTextArea(code, {
 })
 editor.on("change", (instance, changes) => {
     lastCursorPosition = changes.to;
-    const {origin, text, removed} = changes;
-    if (origin !== "setValue" && origin !== "setCursor" && (text[0] === " " || text.length > 1 || removed.length > 2 || removed[0].length > 5)) {
+
+        if (changes.origin !== "setValue") {
         socket.emit("chat message", instance.getValue())
     }
 })
