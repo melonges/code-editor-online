@@ -25,7 +25,8 @@ io.on('connection', (socket) => {
   socket.emit("chat message", ACTUAL_MSG)
   socket.on("change lang", lang => {io.emit("change lang", lang)})
   socket.on('chat message', msg => {
-    io.emit('chat message', msg);
+    socket.broadcast.emit('chat message', msg);
+    // io.emit('chat message', msg);
     ACTUAL_MSG = msg
   });
   socket.on('disconnect', _ => {
