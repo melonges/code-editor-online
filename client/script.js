@@ -11,15 +11,19 @@ const editor = CodeMirror.fromTextArea(document.querySelector("#code"), {
     autoCloseTags: true,
     autoCloseBrackets: true,
     scrollbarStyle: "overlay",
-    extraKeys: {"Ctrl-Space": "autocomplete"},
+    extraKeys: {
+        "Ctrl-Space": "autocomplete",
+        "Tab": function(cm) {
+            var spaces = Array(cm.getOption("indentUnit") + 1).join(" ");
+            cm.replaceSelection(spaces);
+        }
+    },
     hintOptions: {
         hint: CodeMirror.hint.anyword
     },
-    Tab: "indentMore",
-    defaultTab: function (cm) {
-        if (cm.somethingSelected()) cm.indentSelection("add");
-        else cm.replaceSelection("  ", "end");
-    },
+    indentUnit: 4,
+    tabSize: 4,
+    indentWithTabs: true,
     mode
 })
 editor.on("change", (instance, changes) => {
