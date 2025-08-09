@@ -27,7 +27,7 @@ const editor = CodeMirror.fromTextArea(document.querySelector("#code"), {
     mode
 })
 editor.on("change", (instance, changes) => {
-    lastCursorPosition = changes.to;
+    // lastCursorPosition = changes.to;
 
         if (changes.origin !== "setValue") {
         socket.emit("chat message", instance.getValue())
