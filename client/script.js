@@ -11,6 +11,10 @@ const editor = CodeMirror.fromTextArea(document.querySelector("#code"), {
     autoCloseTags: true,
     autoCloseBrackets: true,
     scrollbarStyle: "overlay",
+    extraKeys: {"Ctrl-Space": "autocomplete"},
+    hintOptions: {
+        hint: CodeMirror.hint.anyword
+    },
     Tab: "indentMore",
     defaultTab: function (cm) {
         if (cm.somethingSelected()) cm.indentSelection("add");

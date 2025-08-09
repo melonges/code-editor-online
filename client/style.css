@@ -89,7 +89,7 @@ section.augs {
     margin: auto;
     --aug-inlay: initial;
     --aug-inlay-all: 2px;
-    --aug-inlay-bg: url(https://avatars.githubusercontent.com/u/70666395?v=4) center 70% / auto 70% no-repeat;
+    --aug-inlay-bg: url(https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Emblem_of_Hamas_Vector_Graphic.svg/960px-Emblem_of_Hamas_Vector_Graphic.svg.png) center 70% / auto 70% no-repeat;
     --aug-inlay-opacity: 0.25;
 }
 
